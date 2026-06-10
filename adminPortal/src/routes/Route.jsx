@@ -1,0 +1,65 @@
+import React from "react";
+import { createBrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import AuthLayout from "../layouts/AuthLayout";
+import Login from "../pages/Auth/Login/Login";
+import DashboardLayout from "../layouts/DashboardLayout";
+import Dashboard from "../pages/Dashboard/DashBoard";
+import Categories from "../pages/Categories/Categroies";
+import Products from "../pages/Products/Products";
+import Orders from "../pages/Orders/Orders";
+import Customers from "../pages/Customers/Customers";
+import Settings from "../pages/Settings/Settings";
+
+const ProtectedRoutes = ({childern}) => {
+    const isAuthenticated = localStorage.getItem("adminToken");
+
+    if(!isAuthenticated) {
+        return <Navigate to="/login" replace />
+    }
+
+    return childern;
+}
+
+const PublicRoute = ({ children }) => {
+    const isAuthenticated = localStorage.getItem("token");
+    
+    if (isAuthenticated) {
+        return <Navigate to="/dashboard" replace />;
+    }
+    
+    return children;
+};
+
+const router = createBrowserRouter([
+    {
+        path: "/login",
+        element: (
+            <PublicRoute>
+                <AuthLayout />
+            </PublicRoute>
+        ),
+        children: [
+            {index: true, element: <Login />}
+        ],
+    },
+
+    {
+        path: "/",
+        element: (
+            <ProtectedRoutes>
+                <DashboardLayout />
+            </ProtectedRoutes>
+        ),
+        children: [
+            {index: true, element: <Navigate to="/dashboard" replace/> },
+            { path: "dashboard", element: <Dashboard /> },
+            { path: "categories", element: <Categories /> },
+            { path: "products", element: <Products /> },
+            { path: "orders", element: <Orders /> },
+            { path: "users", element: <Customers /> },
+            { path: "settings", element: <Settings /> },
+        ]
+    }
+]);
+
+export default router;
