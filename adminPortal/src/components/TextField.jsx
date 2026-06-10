@@ -168,7 +168,7 @@ const TextField = React.forwardRef(({
               <button
                 type="button"
                 onClick={togglePasswordVisibility}
-                className="text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-full p-1"
+                className="text-gray-400 hover:text-gray-600 p-1"
                 tabIndex={-1}
                 aria-label={showPassword ? 'Hide password' : 'Show password'}
               >

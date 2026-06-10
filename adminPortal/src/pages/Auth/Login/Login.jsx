@@ -71,7 +71,7 @@ function Login() {
                     type="email"
                     name="email"
                     label="Email Address"
-                    placeholder="admin@wishfaah.com"
+                    placeholder="admin@wishfaah.pk"
                     value={formData.email}
                     onChange={handleChange}
                     error={errors.email}
@@ -105,7 +105,7 @@ function Login() {
                     </label>
                     <a 
                         href="/forgot-password" 
-                        className="text-sm text-blue-600 hover:text-blue-700 hover:underline"
+                        className="text-sm text-cyan-600 hover:text-cyan-700 hover:underline"
                     >
                         Forgot password?
                     </a>
@@ -128,9 +128,9 @@ function Login() {
                     Don't have an account?{' '}
                     <a 
                         href="/register" 
-                        className="text-blue-600 hover:text-blue-700 font-medium hover:underline"
+                        className="text-cyan-600 hover:text-cyan-700 font-medium hover:underline"
                     >
-                        Contact Admin
+                        Register As Admin
                     </a>
                 </p>
             </div>

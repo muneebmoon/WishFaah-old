@@ -129,7 +129,7 @@ function SideBar({ onCollapseChange, isCollapsed: externalCollapsed }) {
             classes += `${isCollapsed ? 'w-20' : 'w-64'} left-0 top-0`;
         }
         
-        classes += " bg-gradient-to-b from-blue-600 to-blue-800";
+        classes += " bg-gradient-to-b from-blue-300 to-cyan-700";
         return classes;
     };
 
@@ -153,7 +153,7 @@ function SideBar({ onCollapseChange, isCollapsed: externalCollapsed }) {
             <button
                 id="menu-btn"
                 onClick={toggleSidebar}
-                className="fixed top-4 left-4 z-50 p-2 bg-blue-600 text-white rounded-lg shadow-lg hover:bg-blue-700 transition-colors"
+                className="fixed top-4 left-4 z-50 p-2 bg-cyan-600 text-white rounded-lg shadow-lg hover:bg-cyan-700 transition-colors"
             >
                 <MdMenu className="w-6 h-6" />
             </button>
