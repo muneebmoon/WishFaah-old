@@ -1,5 +1,6 @@
 // SideBar.jsx
 import React, { useState, useEffect } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom';
 import { 
     MdDashboard, 
     MdCategory, 
@@ -13,6 +14,8 @@ import {
 } from 'react-icons/md'
 
 function SideBar({ onCollapseChange, isCollapsed: externalCollapsed }) {
+    const navigate = useNavigate();
+    const location = useLocation();
     const [activeMenu, setActiveMenu] = useState("Dashboard");
     const [isCollapsed, setIsCollapsed] = useState(externalCollapsed || false);
     const [isMobileOpen, setIsMobileOpen] = useState(false);
@@ -41,7 +44,7 @@ function SideBar({ onCollapseChange, isCollapsed: externalCollapsed }) {
         },
         {
             menuText: "Customers",
-            path: "/users",
+            path: "/customers",
             icon: <MdPeople className="w-5 h-5" />
         },
         {
@@ -92,7 +95,11 @@ function SideBar({ onCollapseChange, isCollapsed: externalCollapsed }) {
 
     const handleNavigation = (path, menuText) => {
         setActiveMenu(menuText);
-        console.log(`Navigating to: ${path}`);
+
+        if (window.location.pathname !== path) {
+            navigate(path);
+        }
+
         // Close mobile sidebar after navigation
         if (isMobile) {
             setIsMobileOpen(false);

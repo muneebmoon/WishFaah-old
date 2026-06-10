@@ -9,19 +9,20 @@ import Products from "../pages/Products/Products";
 import Orders from "../pages/Orders/Orders";
 import Customers from "../pages/Customers/Customers";
 import Settings from "../pages/Settings/Settings";
+import NotFound from "../pages/NotFound/NotFound";
 
-const ProtectedRoutes = ({childern}) => {
+const ProtectedRoutes = ({ children }) => {
     const isAuthenticated = localStorage.getItem("adminToken");
 
     if(!isAuthenticated) {
         return <Navigate to="/login" replace />
     }
 
-    return childern;
+    return children;
 }
 
 const PublicRoute = ({ children }) => {
-    const isAuthenticated = localStorage.getItem("token");
+    const isAuthenticated = localStorage.getItem("adminToken");
     
     if (isAuthenticated) {
         return <Navigate to="/dashboard" replace />;
@@ -56,9 +57,15 @@ const router = createBrowserRouter([
             { path: "categories", element: <Categories /> },
             { path: "products", element: <Products /> },
             { path: "orders", element: <Orders /> },
-            { path: "users", element: <Customers /> },
+            { path: "customers", element: <Customers /> },
             { path: "settings", element: <Settings /> },
         ]
+    },
+
+    // 404 Route - This catches all unmatched routes
+    {
+        path: "*",
+        element: <NotFound />
     }
 ]);
 
