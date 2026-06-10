@@ -106,6 +106,11 @@ function SideBar({ onCollapseChange, isCollapsed: externalCollapsed }) {
         }
     };
 
+    const handleLogout = ()=> {
+        localStorage.removeItem("adminToken");
+        navigate("/login");
+    }
+
     const toggleSidebar = () => {
         if (isMobile) {
             setIsMobileOpen(!isMobileOpen);
@@ -263,7 +268,7 @@ function SideBar({ onCollapseChange, isCollapsed: externalCollapsed }) {
                         flex items-center rounded-lg cursor-pointer transition-all duration-200
                         ${isCollapsed && !isMobile ? 'justify-center' : 'space-x-3'}
                         text-white/70 hover:text-white px-3 py-2 hover:bg-white/10
-                    `}>
+                    `} onClick={handleLogout}>
                         <MdLogout className="w-5 h-5" />
                         {(!isCollapsed || isMobile) && (
                             <span className="font-medium text-sm">Logout</span>
