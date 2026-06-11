@@ -277,7 +277,7 @@ function SideBar({ onCollapseChange, isCollapsed: externalCollapsed }) {
                 </div>
             </div>
 
-            <style jsx>{`
+            <style>{`
                 .custom-scrollbar::-webkit-scrollbar {
                     width: 5px;
                     height: 5px;
