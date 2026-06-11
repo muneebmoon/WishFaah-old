@@ -4,6 +4,7 @@ import { useLocation, Link } from 'react-router-dom';
 import SideBar from '../components/SideBar';
 import { Outlet } from 'react-router-dom';
 import { MdHome, MdChevronRight } from 'react-icons/md';
+import { FaInstagram, FaFacebook, FaWhatsapp, FaPinterest } from 'react-icons/fa';
 
 function DashboardLayout() {
     const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
@@ -15,10 +16,10 @@ function DashboardLayout() {
         const checkMobile = () => {
             setIsMobile(window.innerWidth < 768);
         };
-        
+
         checkMobile();
         window.addEventListener('resize', checkMobile);
-        
+
         return () => window.removeEventListener('resize', checkMobile);
     }, []);
 
@@ -32,7 +33,7 @@ function DashboardLayout() {
     const getPageTitle = () => {
         const path = location.pathname;
         const pageName = path.split('/').pop();
-        
+
         const pageTitles = {
             'dashboard': 'Dashboard',
             'categories': 'Categories',
@@ -43,18 +44,18 @@ function DashboardLayout() {
             'profile': 'Profile',
             'reports': 'Reports'
         };
-        
+
         return pageTitles[pageName] || pageName.charAt(0).toUpperCase() + pageName.slice(1);
     };
 
     // Generate breadcrumb items
     const getBreadcrumbs = () => {
         const paths = location.pathname.split('/').filter(path => path);
-        
+
         const breadcrumbs = paths.map((path, index) => {
             const url = `/${paths.slice(0, index + 1).join('/')}`;
             const isLast = index === paths.length - 1;
-            
+
             // Format the path name
             let label = path.charAt(0).toUpperCase() + path.slice(1);
             const pageTitles = {
@@ -66,10 +67,10 @@ function DashboardLayout() {
                 'settings': 'Settings'
             };
             label = pageTitles[path] || label;
-            
+
             return { label, url, isLast };
         });
-        
+
         return breadcrumbs;
     };
 
@@ -78,11 +79,11 @@ function DashboardLayout() {
 
     return (
         <div className="min-h-screen bg-gray-100">
-            <SideBar 
+            <SideBar
                 onCollapseChange={setSidebarCollapsed}
                 isCollapsed={sidebarCollapsed}
             />
-            
+
             {/* Main content with responsive margin */}
             <div className={`transition-all duration-300 ${getContentMargin()}`}>
                 {/* Add padding-top for mobile menu button */}
@@ -103,8 +104,8 @@ function DashboardLayout() {
                                                 {crumb.label}
                                             </span>
                                         ) : (
-                                            <Link 
-                                                to={crumb.url} 
+                                            <Link
+                                                to={crumb.url}
                                                 className="hover:text-blue-600 transition-colors"
                                             >
                                                 {crumb.label}
@@ -113,16 +114,54 @@ function DashboardLayout() {
                                     </div>
                                 ))}
                             </div>
-                            
+
                             {/* Page Title */}
                             <div className="flex items-center justify-between">
                                 <h1 className="text-2xl md:text-3xl font-bold text-gray-800">
                                     {pageTitle}
                                 </h1>
+                                {/* Social Media Accounts */}
+                                <div className="flex items-center gap-2">
+                                    <a
+                                        href="https://instagram.com/wishfaah"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="p-2 text-gray-500 hover:text-pink-600 hover:bg-pink-50 rounded-lg transition-all duration-200"
+                                        title="Instagram"
+                                    >
+                                        <FaInstagram className="w-5 h-5" />
+                                    </a>
+                                    <a
+                                        href="https://facebook.com/wishfaah"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200"
+                                        title="Facebook"
+                                    >
+                                        <FaFacebook className="w-5 h-5" />
+                                    </a>
+                                    <a
+                                        href="https://wa.me/1234567890"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="p-2 text-gray-500 hover:text-green-500 hover:bg-green-50 rounded-lg transition-all duration-200"
+                                        title="WhatsApp"
+                                    >
+                                        <FaWhatsapp className="w-5 h-5" />
+                                    </a>
+                                    <a
+                                        href="https://pinterest.com/wishfaah"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="p-2 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all duration-200"
+                                        title="Pinterest"
+                                    >
+                                        <FaPinterest className="w-5 h-5" />
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    
                     {/* Main Content Area */}
                     <main className="p-4 md:p-6">
                         <Outlet />
