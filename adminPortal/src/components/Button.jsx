@@ -24,7 +24,7 @@ const Button = React.forwardRef(({
     danger: 'bg-red-600 text-white hover:bg-red-700 focus:ring-red-500',
     warning: 'bg-yellow-500 text-white hover:bg-yellow-600 focus:ring-yellow-500',
     info: 'bg-cyan-600 text-white hover:bg-cyan-700 focus:ring-cyan-500',
-    outline: 'border-2 border-blue-600 text-blue-600 hover:bg-blue-50 focus:ring-blue-500',
+    outline: 'border-2 border-cyan-600 text-cyan-600 hover:bg-cyan-50 focus:ring-cyan-500',
     ghost: 'text-gray-600 hover:bg-gray-100 focus:ring-gray-500',
   };
   

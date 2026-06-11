@@ -169,7 +169,7 @@ function Categories() {
                             placeholder="Search categories by name or description..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
+                            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition"
                         />
                     </div>
                     <Button
@@ -261,7 +261,7 @@ function Categories() {
                                             <div className="flex items-center justify-center gap-2">
                                                 <button
                                                     onClick={() => openEditModal(category)}
-                                                    className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                                                    className="p-2 text-cyan-600 hover:bg-cyan-50 rounded-lg transition-colors"
                                                     title="Edit category"
                                                 >
                                                     <MdEdit className="w-5 h-5" />
@@ -294,7 +294,7 @@ function Categories() {
 
             {/* Add Category Modal */}
             {showAddModal && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+                <div className="fixed inset-0 bg-black/20 backdrop-blur-sm flex items-center justify-center z-50 p-4">
                     <div className="bg-white rounded-lg shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
                         <div className="p-6">
                             <h3 className="text-xl font-bold text-gray-800 mb-4">Add New Category</h3>
@@ -348,7 +348,7 @@ function Categories() {
 
             {/* Edit Category Modal */}
             {showEditModal && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+                <div className="fixed inset-0 bg-black/20 backdrop-blur-sm flex items-center justify-center z-50 p-4">
                     <div className="bg-white rounded-lg shadow-xl max-w-md w-full">
                         <div className="p-6">
                             <h3 className="text-xl font-bold text-gray-800 mb-4">Edit Category</h3>
@@ -400,7 +400,7 @@ function Categories() {
 
             {/* Delete Confirmation Modal */}
             {showDeleteModal && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+                <div className="fixed inset-0 bg-black/20 backdrop-blur-sm flex items-center justify-center z-50 p-4">
                     <div className="bg-white rounded-lg shadow-xl max-w-md w-full">
                         <div className="p-6">
                             <div className="flex items-center justify-center mb-4">
