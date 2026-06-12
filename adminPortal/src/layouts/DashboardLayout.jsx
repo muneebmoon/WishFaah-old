@@ -141,7 +141,7 @@ function DashboardLayout() {
                                         <FaFacebook className="w-5 h-5" />
                                     </a>
                                     <a
-                                        href="https://wa.me/1234567890"
+                                        href="https://wa.me/923487089629"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="p-2 text-gray-500 hover:text-green-500 hover:bg-green-50 rounded-lg transition-all duration-200"
@@ -150,7 +150,7 @@ function DashboardLayout() {
                                         <FaWhatsapp className="w-5 h-5" />
                                     </a>
                                     <a
-                                        href="https://pinterest.com/wishfaah"
+                                        href="https://www.pinterest.com/wishfaah"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="p-2 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all duration-200"
