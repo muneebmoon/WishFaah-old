@@ -10,6 +10,9 @@ import Orders from "../pages/Orders/Orders";
 import Customers from "../pages/Customers/Customers";
 import Settings from "../pages/Settings/Settings";
 import NotFound from "../pages/NotFound/NotFound";
+import AddProduct from "../pages/Products/AddProduct";
+import ViewProduct from "../pages/Products/ViewProduct";
+import EditProduct from "../pages/Products/EditProduct";
 
 const ProtectedRoutes = ({ children }) => {
     const isAuthenticated = localStorage.getItem("adminToken");
@@ -59,6 +62,20 @@ const router = createBrowserRouter([
             { path: "orders", element: <Orders /> },
             { path: "customers", element: <Customers /> },
             { path: "settings", element: <Settings /> },
+        ]
+    },
+
+    {
+        path: "/products",
+        element: (
+            <ProtectedRoutes>
+                <DashboardLayout />
+            </ProtectedRoutes>
+        ),
+        children: [
+            { path: "addProduct", element: <AddProduct /> },
+            { path: "viewProduct/:id", element: <ViewProduct /> },
+            { path: "editProduct/:id", element: <EditProduct /> }
         ]
     },
 
