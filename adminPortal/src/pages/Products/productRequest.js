@@ -35,5 +35,10 @@ export const ProductRequest = {
                 'Content-Type': 'multipart/form-data'
             }
         });
+    },
+
+        // New: Extract product details using AI
+    extractProductDetails: (rawText) => {
+        return apiClient.post('/products/extract-product', { rawText });
     }
 };

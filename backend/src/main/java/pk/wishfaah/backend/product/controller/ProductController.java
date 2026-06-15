@@ -9,8 +9,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pk.wishfaah.backend.product.dto.ProductExtractRequest;
+import pk.wishfaah.backend.product.dto.ProductExtractionResponse;
 import pk.wishfaah.backend.product.dto.ProductRequest;
 import pk.wishfaah.backend.product.dto.ProductResponse;
+import pk.wishfaah.backend.product.service.ProductAiService;
 import pk.wishfaah.backend.product.service.ProductService;
 
 import java.util.List;
@@ -20,10 +23,12 @@ import java.util.List;
 public class ProductController {
 
     private final ProductService productService;
+    private final ProductAiService productAiService;
 
     @Autowired
-    public ProductController(ProductService productService) {
+    public ProductController(ProductService productService, ProductAiService productAiService) {
         this.productService = productService;
+        this.productAiService = productAiService;
     }
 
     /**
@@ -99,5 +104,15 @@ public class ProductController {
     public ResponseEntity<Void> deleteProduct(@PathVariable Integer id) {
         productService.deleteProduct(id);
         return ResponseEntity.noContent().build(); // 204 No Content
+    }
+
+    @PostMapping("/extract-product")
+    public ResponseEntity<ProductExtractionResponse> extractProduct(
+            @RequestBody ProductExtractRequest request) {
+
+        ProductExtractionResponse response =
+                productAiService.extractProductDetails(request.getRawText());
+
+        return ResponseEntity.ok(response);
     }
 }

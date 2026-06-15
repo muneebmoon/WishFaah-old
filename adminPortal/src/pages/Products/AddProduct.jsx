@@ -1,7 +1,7 @@
 // pages/Products/AddProduct.jsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { MdCloudUpload, MdDelete, MdZoomIn, MdClose, MdSave, MdCancel } from 'react-icons/md';
+import { MdCloudUpload, MdDelete, MdZoomIn, MdClose, MdSave, MdCancel, MdAutoAwesome } from 'react-icons/md';
 import Button from '../../components/Button';
 import TextField from '../../components/TextField';
 import { ProductRequest } from './productRequest';
@@ -13,6 +13,9 @@ function AddProduct() {
     const [loading, setLoading] = useState(false);
     const [uploadingImages, setUploadingImages] = useState(false);
     const [selectedImageForZoom, setSelectedImageForZoom] = useState(null);
+    const [showAiModal, setShowAiModal] = useState(false);
+    const [aiText, setAiText] = useState('');
+    const [aiLoading, setAiLoading] = useState(false);
     const [formData, setFormData] = useState({
         title: '',
         price: '',
@@ -50,6 +53,38 @@ function AddProduct() {
         // Clear error when user types
         if (formErrors[name]) {
             setFormErrors(prev => ({ ...prev, [name]: '' }));
+        }
+    };
+
+    // Handle AI extraction
+    const handleAiExtraction = async () => {
+        if (!aiText.trim()) {
+            alert('Please enter product description text');
+            return;
+        }
+
+        setAiLoading(true);
+        try {
+            const response = await ProductRequest.extractProductDetails(aiText);
+            
+            // Auto-fill form with extracted data
+            setFormData(prev => ({
+                ...prev,
+                title: response.productTitle || prev.title,
+                price: response.regularPrice ? response.regularPrice.toString() : prev.price,
+                salePrice: response.salePrice ? response.salePrice.toString() : prev.salePrice,
+                shortDescription: response.shortDescription || prev.shortDescription,
+                longDescription: response.longDescription || prev.longDescription
+            }));
+            
+            // Close modal and show success message
+            setShowAiModal(false);
+            setAiText('');
+        } catch (error) {
+            console.error('Error extracting product details:', error);
+            alert('Failed to extract product details. Please try again.');
+        } finally {
+            setAiLoading(false);
         }
     };
 
@@ -204,6 +239,14 @@ function AddProduct() {
                         leftIcon={<MdCancel className="w-5 h-5" />}
                     >
                         Cancel
+                    </Button>
+                    <Button
+                        onClick={() => setShowAiModal(true)}
+                        variant="secondary"
+                        size="md"
+                        leftIcon={<MdAutoAwesome className="w-5 h-5" />}
+                    >
+                        Use AI to fill
                     </Button>
                     <Button
                         onClick={handleSubmit}
@@ -407,6 +450,70 @@ function AddProduct() {
                     )}
                 </div>
             </div>
+
+            {/* AI Extraction Modal */}
+            {showAiModal && (
+                <div className="fixed inset-0 bg-black/20 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+                    <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+                        {/* Modal Header */}
+                        <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center">
+                            <div className="flex items-center gap-2">
+                                <MdAutoAwesome className="w-6 h-6 text-cyan-600" />
+                                <h3 className="text-xl font-bold text-gray-800">AI Product Extractor</h3>
+                            </div>
+                            <button
+                                onClick={() => setShowAiModal(false)}
+                                className="text-gray-400 hover:text-gray-600 transition-colors"
+                            >
+                                <MdClose className="w-6 h-6" />
+                            </button>
+                        </div>
+
+                        {/* Modal Content */}
+                        <div className="p-6">
+                            <p className="text-gray-600 mb-4">
+                                Paste your product description text below, and our AI will automatically extract 
+                                product title, prices, and descriptions to fill the form.
+                            </p>
+                            
+                            <div className="mb-6">
+                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    Product Description Text
+                                </label>
+                                <textarea
+                                    value={aiText}
+                                    onChange={(e) => setAiText(e.target.value)}
+                                    rows={10}
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition"
+                                    placeholder="Paste your product description here...
+                                    
+Example:
+Premium 3-Piece Printed Lawn Suit with Embroidered Chiffon Dupatta. Regular price: $45, Sale price: $35. Experience the perfect blend of traditional charm and contemporary design with our premium 3-piece lawn collection..."
+                                />
+                            </div>
+
+                            <div className="flex gap-3 justify-end">
+                                <Button
+                                    onClick={() => setShowAiModal(false)}
+                                    variant="outline"
+                                    size="md"
+                                >
+                                    Cancel
+                                </Button>
+                                <Button
+                                    onClick={handleAiExtraction}
+                                    variant="primary"
+                                    size="md"
+                                    loading={aiLoading}
+                                    leftIcon={<MdAutoAwesome className="w-5 h-5" />}
+                                >
+                                    Extract & Fill
+                                </Button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {/* Image Zoom Modal */}
             {selectedImageForZoom && (
