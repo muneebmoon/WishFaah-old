@@ -23,11 +23,13 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
+    private final WhatsAppCatalogService whatsAppCatalogService;
 
     @Autowired
-    public ProductServiceImpl(ProductRepository productRepository, CategoryRepository categoryRepository) {
+    public ProductServiceImpl(ProductRepository productRepository, CategoryRepository categoryRepository, WhatsAppCatalogService whatsAppCatalogService) {
         this.productRepository = productRepository;
         this.categoryRepository = categoryRepository;
+        this.whatsAppCatalogService = whatsAppCatalogService;
     }
 
     @Override
@@ -45,6 +47,7 @@ public class ProductServiceImpl implements ProductService {
         product.setCategory(category);
 
         Product savedProduct = productRepository.save(product);
+        whatsAppCatalogService.syncProductToWhatsApp(savedProduct);
         return toResponse(savedProduct);
     }
 
@@ -109,6 +112,7 @@ public class ProductServiceImpl implements ProductService {
         }
 
         Product updatedProduct = productRepository.save(existingProduct);
+        whatsAppCatalogService.syncProductToWhatsApp(updatedProduct);
         return toResponse(updatedProduct);
     }
 
