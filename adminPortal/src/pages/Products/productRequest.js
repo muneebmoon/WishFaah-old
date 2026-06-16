@@ -26,18 +26,7 @@ export const ProductRequest = {
         return apiClient.delete(`/products/${id}`);
     },
 
-    // Image upload endpoint (add this when backend is ready)
-    uploadImage: (file) => {
-        const formData = new FormData();
-        formData.append('image', file);
-        return apiClient.post('/upload', formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        });
-    },
-
-        // New: Extract product details using AI
+    // New: Extract product details using AI
     extractProductDetails: (rawText) => {
         return apiClient.post('/products/extract-product', { rawText });
     }

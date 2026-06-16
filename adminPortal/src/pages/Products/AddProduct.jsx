@@ -6,6 +6,7 @@ import Button from '../../components/Button';
 import TextField from '../../components/TextField';
 import { ProductRequest } from './productRequest';
 import { categoryRequest } from '../Categories/categoryRequest';
+import { uploadToImageKit } from '../../utils/uploadToImageKit';
 
 function AddProduct() {
     const navigate = useNavigate();
@@ -28,6 +29,7 @@ function AddProduct() {
     const [formErrors, setFormErrors] = useState({});
     const [images, setImages] = useState([]); // Store image URLs after upload
     const [imageFiles, setImageFiles] = useState([]); // Store files for upload
+    const [uploadProgress, setUploadProgress] = useState(0);
 
     // Fetch categories
     useEffect(() => {
@@ -88,54 +90,72 @@ function AddProduct() {
         }
     };
 
-    // Handle image upload
-    const handleImageUpload = async (e) => {
-        const files = Array.from(e.target.files);
-        if (files.length === 0) return;
+    // Handle image upload to ImageKit
+    // Handle image upload to ImageKit
+const handleImageUpload = async (e) => {
+    const files = Array.from(e.target.files);
+    if (files.length === 0) return;
 
-        // Validate file size (max 5MB per file)
-        const invalidFiles = files.filter(file => file.size > 5 * 1024 * 1024);
-        if (invalidFiles.length > 0) {
-            alert('Some images exceed 5MB limit. Please choose smaller images.');
-            return;
+    // Validate file size (max 5MB per file)
+    const invalidFiles = files.filter(file => file.size > 5 * 1024 * 1024);
+    if (invalidFiles.length > 0) {
+        alert(`Some images exceed 5MB limit: ${invalidFiles.map(f => f.name).join(', ')}`);
+        return;
+    }
+
+    // Validate file types
+    const validTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp'];
+    const invalidTypes = files.filter(file => !validTypes.includes(file.type));
+    if (invalidTypes.length > 0) {
+        alert(`Only JPEG, PNG, WEBP images are allowed. Invalid files: ${invalidTypes.map(f => f.name).join(', ')}`);
+        return;
+    }
+
+    setUploadingImages(true);
+    setUploadProgress(0);
+
+    const uploadedImages = [];
+    const uploadErrors = [];
+
+    for (let i = 0; i < files.length; i++) {
+        try {
+            const file = files[i];
+            
+            // Create a local URL for preview
+            const localUrl = URL.createObjectURL(file);
+            uploadedImages.push(localUrl);
+            
+            // Upload to ImageKit
+            const imageUrl = await uploadToImageKit(file);
+            
+            // Replace local URL with ImageKit URL
+            const index = uploadedImages.length - 1;
+            uploadedImages[index] = imageUrl;
+            
+            // Update progress
+            const progress = Math.round(((i + 1) / files.length) * 100);
+            setUploadProgress(progress);
+            
+        } catch (error) {
+            console.error('Error uploading image:', error);
+            uploadErrors.push({
+                file: files[i].name,
+                error: error.message
+            });
         }
+    }
 
-        // Validate file types
-        const validTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp'];
-        const invalidTypes = files.filter(file => !validTypes.includes(file.type));
-        if (invalidTypes.length > 0) {
-            alert('Only JPEG, PNG, WEBP images are allowed.');
-            return;
-        }
+    // Show errors if any
+    if (uploadErrors.length > 0) {
+        const errorMessage = uploadErrors.map(e => `${e.file}: ${e.error}`).join('\n');
+        alert(`Failed to upload some images:\n${errorMessage}`);
+    }
 
-        setUploadingImages(true);
-
-        // Simulate image upload to /public/product_images
-        // In production, this would be an API call to your backend
-        const uploadedImages = [];
-        const uploadedFiles = [];
-
-        for (const file of files) {
-            try {
-                // Create a local URL for preview
-                const localUrl = URL.createObjectURL(file);
-                uploadedImages.push(localUrl);
-                uploadedFiles.push(file);
-                
-                // Here you would upload to your server
-                // const formData = new FormData();
-                // formData.append('image', file);
-                // const response = await apiClient.post('/upload', formData);
-                // uploadedImages.push(response.data.url);
-            } catch (error) {
-                console.error('Error uploading image:', error);
-            }
-        }
-
-        setImages(prev => [...prev, ...uploadedImages]);
-        setImageFiles(prev => [...prev, ...uploadedFiles]);
-        setUploadingImages(false);
-    };
+    setImages(prev => [...prev, ...uploadedImages]);
+    setImageFiles(prev => [...prev, ...files]);
+    setUploadingImages(false);
+    setUploadProgress(0);
+};
 
     // Remove image
     const removeImage = (index) => {
@@ -208,7 +228,7 @@ function AddProduct() {
             longDescription: formData.longDescription || null,
             inStock: formData.inStock,
             categoryId: parseInt(formData.categoryId),
-            images: images // In production, these would be URLs from server upload
+            images: images // Now contains ImageKit URLs
         };
         
         try {
@@ -399,17 +419,34 @@ function AddProduct() {
                             <MdCloudUpload className="w-12 h-12 text-gray-400 mx-auto mb-2" />
                             <p className="text-gray-600">Click or drag images to upload</p>
                             <p className="text-sm text-gray-400 mt-1">JPEG, PNG, WEBP up to 5MB each</p>
+                            <p className="text-xs text-gray-400 mt-1">Images will be uploaded to ImageKit</p>
                         </label>
                         {formErrors.images && (
                             <p className="mt-2 text-sm text-red-600">{formErrors.images}</p>
                         )}
                     </div>
 
+                    {/* Upload Progress */}
+                    {uploadingImages && uploadProgress > 0 && uploadProgress < 100 && (
+                        <div className="mb-4">
+                            <div className="flex items-center justify-between text-sm text-gray-600 mb-1">
+                                <span>Uploading...</span>
+                                <span>{uploadProgress}%</span>
+                            </div>
+                            <div className="w-full bg-gray-200 rounded-full h-2">
+                                <div 
+                                    className="bg-cyan-600 h-2 rounded-full transition-all duration-300"
+                                    style={{ width: `${uploadProgress}%` }}
+                                ></div>
+                            </div>
+                        </div>
+                    )}
+
                     {/* Image Gallery */}
-                    {uploadingImages && (
+                    {uploadingImages && uploadProgress === 0 && (
                         <div className="text-center py-4">
                             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-cyan-600 mx-auto"></div>
-                            <p className="text-sm text-gray-500 mt-2">Uploading images...</p>
+                            <p className="text-sm text-gray-500 mt-2">Uploading images to ImageKit...</p>
                         </div>
                     )}
 

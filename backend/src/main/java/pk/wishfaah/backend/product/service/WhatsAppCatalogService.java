@@ -52,16 +52,26 @@ public class WhatsAppCatalogService {
             String formattedPrice = product.getPrice().intValue() + " PKR";
             data.put("price", formattedPrice);
 
-// 3. Fix Sale Price Formatting: If you have a sale price, format it the same way
+            // 3. Fix Sale Price Formatting: If you have a sale price, format it the same way
             if (product.getSalePrice() != null) {
                 String formattedSalePrice = product.getSalePrice().intValue() + " PKR";
                 data.put("sale_price", formattedSalePrice);
             }
 
-            String imageUrl = (product.getImages() != null && !product.getImages().isEmpty())
-                    ? product.getImages().get(0)
-                    : "https://wishfaah.pk/placeholder.jpg";
-            data.put("image_link", imageUrl);
+            // Images uploads
+            if (product.getImages() != null && !product.getImages().isEmpty()) {
+                // Set the first image as the primary listing photo
+                data.put("image_link", product.getImages().get(0));
+
+                // If there are more images, send them to the additional carousel field
+                if (product.getImages().size() > 1) {
+                    List<String> additionalImages = product.getImages().subList(1, product.getImages().size());
+                    data.put("additional_image_urls", additionalImages);
+                }
+            } else {
+                // Fallback placeholder if no images are attached
+                data.put("image_link", "https://wishfaah.pk/placeholder.jpg");
+            }
             data.put("link", "https://wishfaah.pk/products/" + product.getId());
 
             requestItem.put("data", data);
