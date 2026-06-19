@@ -70,7 +70,7 @@ const Footer = () => {
                   <FiPhone size={16} style={{ color: '#89986D' }} />
                 </div>
                 <span className="text-sm hover:text-[#89986D] transition-colors duration-200" style={{ color: '#4A5A3A' }}>
-                  +1 (555) 123-4567
+                  +92-3487089629
                 </span>
               </div>
               <div className="flex items-center gap-3 group">
@@ -78,15 +78,7 @@ const Footer = () => {
                   <FiMail size={16} style={{ color: '#89986D' }} />
                 </div>
                 <span className="text-sm hover:text-[#89986D] transition-colors duration-200" style={{ color: '#4A5A3A' }}>
-                  support@wishfaah.com
-                </span>
-              </div>
-              <div className="flex items-center gap-3 group">
-                <div className="p-2 rounded-lg bg-[#C5D89D] bg-opacity-20 group-hover:bg-opacity-30 transition-all duration-300">
-                  <FiMapPin size={16} style={{ color: '#89986D' }} />
-                </div>
-                <span className="text-sm hover:text-[#89986D] transition-colors duration-200" style={{ color: '#4A5A3A' }}>
-                  123 Fashion Street, NY 10001
+                  wishfaah@gmail.com
                 </span>
               </div>
             </div>
