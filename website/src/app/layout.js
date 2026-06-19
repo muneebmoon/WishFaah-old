@@ -1,19 +1,17 @@
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import "./globals.css";
+
+// src/app/layout.js
+import './globals.css'; // Imports Tailwind or global CSS variables
 
 export const metadata = {
-  title: "WishFaah",
-  description: "Your Boutique Home",
+  title: 'My Website',
+  description: 'Built professionally with Next.js App Router',
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-            <body>
-        <Navbar transparent={true} />
-        <main className="pt-16 md:pt-20 min-h-screen">{children}</main>
-        <Footer />
+      <body suppressHydrationWarning className="bg-[#FDFBF7] antialiased">
+        {children}
       </body>
     </html>
   );

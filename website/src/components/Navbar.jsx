@@ -10,28 +10,21 @@ const Navbar = ({ transparent = false }) => {
   // Handle scroll effect for transparency
   useEffect(() => {
     const handleScroll = () => {
-      const offset = window.scrollY;
-      if (offset > 50) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      setScrolled(window.scrollY > 50);
     };
-
     window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Determine background classes based on transparent prop and scroll state
   const getBgClasses = () => {
     if (transparent) {
+      // On the homepage: transparent initially, transitions to cream + text changes on scroll
       return scrolled 
-        ? 'bg-[#F6F0D7] shadow-md' 
-        : 'bg-transparent';
+        ? 'bg-[#F6F0D7] shadow-md text-[#4A5A3A]' 
+        : 'bg-transparent text-white';
     }
-    return 'bg-[#F6F0D7] shadow-sm';
+    // Everywhere else: locked to cream background with dark green text immediately
+    return 'bg-[#F6F0D7] shadow-sm text-[#4A5A3A]';
   };
 
   return (
