@@ -201,7 +201,7 @@ const Footer = () => {
             <div className="w-full border-t" style={{ borderColor: '#C5D89D' }}></div>
           </div>
           <div className="relative flex justify-center">
-            <span className="px-4 text-sm bg-[#F6F0D7]" style={{ color: '#9CAB84' }}>
+            <span className="px-4 text-sm bg-[#ECEBCB]" style={{ color: '#9CAB84' }}>
               ✦
             </span>
           </div>
