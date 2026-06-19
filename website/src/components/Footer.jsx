@@ -4,8 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { 
   FiPhone, 
-  FiMail, 
-  FiMapPin, 
+  FiMail,
   FiSend, 
   FiFacebook, 
   FiTwitter, 
@@ -13,6 +12,8 @@ import {
   FiYoutube,
   FiChevronRight 
 } from 'react-icons/fi';
+
+import { FaWhatsapp } from 'react-icons/fa6';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -79,6 +80,14 @@ const Footer = () => {
                 </div>
                 <span className="text-sm hover:text-[#89986D] transition-colors duration-200" style={{ color: '#4A5A3A' }}>
                   wishfaah@gmail.com
+                </span>
+              </div>
+              <div className="flex items-center gap-3 group">
+                <div className="p-2 rounded-lg bg-[#C5D89D] bg-opacity-20 group-hover:bg-opacity-30 transition-all duration-300">
+                  <FaWhatsapp size={16} style={{ color: '#89986D' }} />
+                </div>
+                <span className="text-sm hover:text-[#89986D] transition-colors duration-200" style={{ color: '#4A5A3A' }}>
+                  Join WhatsApp Channel
                 </span>
               </div>
             </div>
