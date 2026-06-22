@@ -382,7 +382,7 @@ export default function AboutPage() {
 
           <div className="mt-8">
             <p className="text-white opacity-80 text-sm">
-              📍 Serving women across Pakistan • 🇵🇰 Made with love
+              📍 Serving women across Pakistan 🇵🇰
             </p>
           </div>
         </div>
