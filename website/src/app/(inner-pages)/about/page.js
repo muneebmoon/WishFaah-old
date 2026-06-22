@@ -5,18 +5,17 @@ import {
   FiShoppingBag, 
   FiTruck, 
   FiAward, 
-  FiHeart, 
-  FiUsers, 
+  FiHeart,
   FiGlobe,
   FiFacebook,
   FiInstagram,
-//   FiPinterest,
-  FiMessageCircle,
   FiChevronRight,
   FiStar,
   FiShield,
   FiRefreshCw
 } from 'react-icons/fi';
+
+import { FaWhatsapp } from 'react-icons/fa6';
 
 export default function AboutPage() {
   return (
@@ -355,14 +354,14 @@ export default function AboutPage() {
               className="group p-4 bg-white bg-opacity-20 rounded-full hover:bg-white transition-all duration-300 hover:scale-110 hover:shadow-xl"
               aria-label="Follow us on Facebook"
             >
-              <FiFacebook size={28} className="text-white group-hover:text-[#89986D] transition-colors" />
+              <FiFacebook size={28} className="text-black group-hover:text-[#89986D] transition-colors" />
             </a>
             <a 
               href="#"
               className="group p-4 bg-white bg-opacity-20 rounded-full hover:bg-white transition-all duration-300 hover:scale-110 hover:shadow-xl"
               aria-label="Follow us on Instagram"
             >
-              <FiInstagram size={28} className="text-white group-hover:text-[#89986D] transition-colors" />
+              <FiInstagram size={28} className="text-black group-hover:text-[#89986D] transition-colors" />
             </a>
             {/* <a 
               href="#"
@@ -376,7 +375,7 @@ export default function AboutPage() {
               className="group p-4 bg-white bg-opacity-20 rounded-full hover:bg-white transition-all duration-300 hover:scale-110 hover:shadow-xl"
               aria-label="Chat with us on WhatsApp"
             >
-              <FiMessageCircle size={28} className="text-white group-hover:text-[#89986D] transition-colors" />
+              <FaWhatsapp size={28} className="text-black group-hover:text-[#89986D] transition-colors" />
             </a>
           </div>
 
