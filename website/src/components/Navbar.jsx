@@ -66,11 +66,11 @@ const Navbar = ({ transparent = false }) => {
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${getBgClasses()}`}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 md:h-26">
+        <div className="flex items-center justify-between h-18 md:h-26">
           {/* Logo - Left */}
           <div className="flex-shrink-0">
             <Link href="/" className="flex items-center">
-              <div className="relative w-14 h-14 md:w-24 md:h-24 rounded-full border-2 overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300" style={{ borderColor: '#89986D' }}>
+              <div className="relative w-16 h-16 md:w-24 md:h-24 rounded-full border-2 overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300" style={{ borderColor: '#89986D' }}>
                 <Image
                   src="/images/wishfaah-logo-dark.webp"
                   alt="WishFaah Logo"

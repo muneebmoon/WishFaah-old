@@ -12,6 +12,7 @@ import {
   FiYoutube,
   FiChevronRight 
 } from 'react-icons/fi';
+import Image from 'next/image';
 
 import { FaWhatsapp } from 'react-icons/fa6';
 
@@ -55,11 +56,17 @@ const Footer = () => {
           
           {/* Column 1 - Logo & Contact */}
           <div className="space-y-4">
-            <Link href="/" className="inline-block">
-              <span className="text-3xl font-bold tracking-tight">
-                <span style={{ color: '#89986D' }}>Wish</span>
-                <span style={{ color: '#9CAB84' }}>Faah</span>
-              </span>
+            <Link href="/" className="flex items-center">
+              <div className="relative w-16 h-16 md:w-24 md:h-24 rounded-full border-2 overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300" style={{ borderColor: '#89986D' }}>
+                <Image
+                  src="/images/wishfaah-logo-dark.webp"
+                  alt="WishFaah Logo"
+                  fill
+                  className="object-cover"
+                  priority
+                  sizes="(max-width: 768px) 56px, 96px"
+                />
+              </div>
             </Link>
             <p className="text-sm leading-relaxed" style={{ color: '#4A5A3A' }}>
               Your one-stop destination for quality products. We bring you the best selection with exceptional service.
@@ -221,6 +228,9 @@ const Footer = () => {
             </Link>
             <Link href="/cookies" className="hover:text-[#89986D] transition-colors duration-200" style={{ color: '#4A5A3A' }}>
               Cookies
+            </Link>
+            <Link href="/sitemap.xml" className="hover:text-[#89986D] transition-colors duration-200" style={{ color: '#4A5A3A' }}>
+              Site Map
             </Link>
           </div>
         </div>
