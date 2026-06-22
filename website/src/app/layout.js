@@ -3,8 +3,8 @@
 import './globals.css'; // Imports Tailwind or global CSS variables
 
 export const metadata = {
-  title: 'My Website',
-  description: 'Built professionally with Next.js App Router',
+  title: 'WishFaah',
+  description: 'WishFaah is a Women\'s clothing store.',
 };
 
 export default function RootLayout({ children }) {
