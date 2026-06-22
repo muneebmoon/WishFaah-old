@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { FiArrowRight, FiStar, FiChevronLeft, FiChevronRight, FiTruck, FiRefreshCw, FiShield, FiHeart } from "react-icons/fi";
 
 /* ─── Colour tokens (match brand) ─── */
@@ -124,6 +125,15 @@ const PERKS = [
   { icon: FiRefreshCw, title: "Easy Returns",     desc: "7-day hassle-free exchange" },
   { icon: FiShield,    title: "100% Authentic",   desc: "Genuine fabrics, every time" },
   { icon: FiHeart,     title: "Stitching Option", desc: "Get your outfit tailored" },
+];
+
+/* ─── Marquee Text Items ─── */
+const MARQUEE_ITEMS = [
+  "Free Delivery Above PKR 3,000",
+  "New Summer Arrivals",
+  "Premium Lawn Fabrics",
+  "Stitching Available",
+  "Exchange Within 7 Days",
 ];
 
 /* ════════════════════════════════════════════
@@ -313,10 +323,10 @@ export default function HomePage() {
       {/* ══════════════ 4. MARQUEE STRIP ══════════════ */}
       <div className="overflow-hidden py-4" style={{ backgroundColor: C.sage }}>
         <div className="flex gap-12 marquee-track whitespace-nowrap">
-          {[...Array(3)].flatMap(() =>
-            ["Free Delivery Above PKR 3,000", "New Summer Arrivals", "Premium Lawn Fabrics", "Stitching Available", "Exchange Within 7 Days"].map((t, i) => (
-              <span key={t + i} className="text-xs tracking-widest font-semibold text-white/80 uppercase inline-block">
-                {t} &nbsp; <span className="opacity-40">◆</span> &nbsp;
+          {[...Array(3)].flatMap((_, repeatIndex) =>
+            MARQUEE_ITEMS.map((text, itemIndex) => (
+              <span key={`${text}-${repeatIndex}-${itemIndex}`} className="text-xs tracking-widest font-semibold text-white/80 uppercase inline-block">
+                {text} &nbsp; <span className="opacity-40">◆</span> &nbsp;
               </span>
             ))
           )}

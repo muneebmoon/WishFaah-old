@@ -77,6 +77,7 @@ const Navbar = ({ transparent = false }) => {
                   fill
                   className="object-cover"
                   priority
+                  sizes="(max-width: 768px) 56px, 96px"
                 />
               </div>
             </Link>
