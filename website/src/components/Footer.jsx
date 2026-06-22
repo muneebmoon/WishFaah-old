@@ -14,7 +14,7 @@ import {
 } from 'react-icons/fi';
 import Image from 'next/image';
 
-import { FaWhatsapp } from 'react-icons/fa6';
+import { FaWhatsapp, FaPinterest } from 'react-icons/fa6';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -183,9 +183,9 @@ const Footer = () => {
               <div className="flex gap-3">
                 {[
                   { icon: FiFacebook, label: 'Facebook' },
-                  { icon: FiTwitter, label: 'Twitter' },
+                  { icon: FaPinterest, label: 'Pinterest' },
                   { icon: FiInstagram, label: 'Instagram' },
-                  { icon: FiYoutube, label: 'YouTube' }
+                  { icon: FaWhatsapp, label: 'WhatsApp' }
                 ].map((social, index) => (
                   <Link 
                     key={index}
@@ -222,13 +222,13 @@ const Footer = () => {
           <div className="flex gap-6 text-xs">
             <Link href="/privacy-policy" className="hover:text-[#89986D] transition-colors duration-200" style={{ color: '#4A5A3A' }}>
               Privacy Policy
-            </Link>
+            </Link> | 
             <Link href="/terms-of-service" className="hover:text-[#89986D] transition-colors duration-200" style={{ color: '#4A5A3A' }}>
               Terms of Service
-            </Link>
+            </Link> | 
             <Link href="/cookies" className="hover:text-[#89986D] transition-colors duration-200" style={{ color: '#4A5A3A' }}>
               Cookies
-            </Link>
+            </Link> | 
             <Link href="/sitemap.xml" className="hover:text-[#89986D] transition-colors duration-200" style={{ color: '#4A5A3A' }}>
               Site Map
             </Link>

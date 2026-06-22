@@ -9,7 +9,7 @@ export default function InnerPagesLayout({ children }) {
       <Navbar transparent={false} />
       
       {/* 2. Padding is applied here so content clears the fixed header */}
-      <main className="flex-grow pt-16 md:pt-20">
+      <main className="flex-grow pt-20 md:pt-26">
         {children}
       </main>
       
