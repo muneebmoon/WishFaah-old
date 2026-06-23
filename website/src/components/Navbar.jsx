@@ -70,14 +70,13 @@ const Navbar = ({ transparent = false }) => {
           {/* Logo - Left */}
           <div className="flex-shrink-0">
             <Link href="/" className="flex items-center">
-              <div className="relative w-16 h-16 md:w-24 md:h-24 rounded-full border-2 overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300" style={{ borderColor: '#89986D' }}>
+              <div className="relative w-16 h-16 md:w-22 md:h-22 rounded-full border-2 overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300" style={{ borderColor: '#89986D' }}>
                 <Image
                   src="/images/wishfaah-logo-dark.webp"
                   alt="WishFaah Logo"
                   fill
                   className="object-cover"
                   priority
-                  sizes="(max-width: 768px) 56px, 96px"
                 />
               </div>
             </Link>

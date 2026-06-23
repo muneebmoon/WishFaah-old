@@ -216,10 +216,10 @@ export default function HomePage() {
       <section className={`relative min-h-screen flex items-center bg-gradient-to-br ${s.bg} transition-all duration-700`}>
         {/* Background image overlay */}
         <HeroImage 
-  images={s.images} 
-  alt={s.heading.join(" ")}
-  className="transition-opacity duration-500"
-/>
+          images={s.images} 
+          alt={s.heading.join(" ")}
+          className="transition-opacity duration-500"
+        />
 
         {/* Decorative corner element */}
         <div
