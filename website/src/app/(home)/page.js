@@ -18,14 +18,18 @@ const C = {
 
 /* ─── Hero Slides ─── */
 const SLIDES = [
-  {
+    {
     heading: ["Summer's Finest,", "Worn by You"],
     sub: "Breathable lawn prints & embroidered kurtas — made for Pakistani summers.",
     cta: "Explore Collection",
     href: "/collections",
     bg: "from-[#2C3B22] to-[#4A5A3A]",
     accent: "#C5D89D",
-    image: "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=900&q=80",
+    images: {
+      mobile: "/images/hero-Image-for-mobile.jpeg",
+      tablet: "/images/hero-Image-for-tablet.jpeg",
+      desktop: "/images/hero-Image-for-desktop.jpeg",
+    },
     tag: "SUMMER '25",
   },
   {
@@ -35,7 +39,11 @@ const SLIDES = [
     href: "/shop?cat=formal",
     bg: "from-[#3B2C22] to-[#5A3A2A]",
     accent: "#D9BA84",
-    image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=900&q=80",
+    images: {
+      mobile: "/images/hero-Image-for-mobile.jpeg",
+      tablet: "/images/hero-Image-for-tablet.jpeg",
+      desktop: "/images/hero-Image-for-desktop.jpeg",
+    },
     tag: "HERITAGE",
   },
   {
@@ -45,7 +53,11 @@ const SLIDES = [
     href: "/shop?cat=casual",
     bg: "from-[#223B3B] to-[#2A5A5A]",
     accent: "#84D9C5",
-    image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=900&q=80",
+    images: {
+      mobile: "/images/hero-Image-for-mobile.jpeg",
+      tablet: "/images/hero-Image-for-tablet.jpeg",
+      desktop: "/images/hero-Image-for-desktop.jpeg",
+    },
     tag: "EVERYDAY",
   },
 ];
@@ -136,6 +148,33 @@ const MARQUEE_ITEMS = [
   "Exchange Within 7 Days",
 ];
 
+/* ─── Responsive Hero Image ─── */
+const HeroImage = ({ images, alt, className }) => {
+  return (
+    <div className="absolute inset-0">
+      <picture>
+        <source 
+          media="(min-width: 1280px)" 
+          srcSet={images.desktop} 
+        />
+        <source 
+          media="(min-width: 768px)" 
+          srcSet={images.tablet} 
+        />
+        <Image
+          src={images.mobile}
+          alt={alt}
+          fill
+          className={className}
+          style={{ filter: "brightness(0.32)", objectFit: "cover" }}
+          priority
+          sizes="(max-width: 768px) 100vw, (max-width: 1280px) 100vw, 100vw"
+        />
+      </picture>
+    </div>
+  );
+};
+
 /* ════════════════════════════════════════════
    COMPONENT
 ════════════════════════════════════════════ */
@@ -176,15 +215,11 @@ export default function HomePage() {
       {/* ══════════════ 1. HERO ══════════════ */}
       <section className={`relative min-h-screen flex items-center bg-gradient-to-br ${s.bg} transition-all duration-700`}>
         {/* Background image overlay */}
-        <div
-          className={`absolute inset-0 transition-opacity duration-500 ${fading ? "opacity-0" : "opacity-100"}`}
-          style={{
-            backgroundImage: `url(${s.image})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center top",
-            filter: "brightness(0.32)",
-          }}
-        />
+        <HeroImage 
+  images={s.images} 
+  alt={s.heading.join(" ")}
+  className="transition-opacity duration-500"
+/>
 
         {/* Decorative corner element */}
         <div
