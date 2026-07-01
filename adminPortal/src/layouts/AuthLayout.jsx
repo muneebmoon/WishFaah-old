@@ -2,6 +2,8 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 
+
+// Auth Layout
 function AuthLayout() {
     return (
         <div className="min-h-screen bg-gradient-to-br from-white-500 to-cyan-600 flex items-center justify-center p-4">
